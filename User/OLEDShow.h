@@ -22,4 +22,12 @@ void OLEDShow_ShowRing(uint8_t visible);
 //第4行显示一行提示
 void OLEDShow_ShowMessage(char *msg);
 
+//设置OLED显示方向：1=旋转180°（翻转后正着看），0=正常
+void OLEDShow_SetFlip(uint8_t flip);
+
+//第二页：MPU6500状态、倾斜方向、温湿度、闹钟
+void OLEDShow_ShowSensorPage(uint8_t mpu_ok, uint8_t flipped,
+                              uint8_t temp, uint8_t hum, uint8_t valid,
+                              ALARM_TypeDef *a);
+
 #endif

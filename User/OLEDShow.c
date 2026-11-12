@@ -298,3 +298,94 @@ void OLEDShow_ShowMessage(char *msg)
     }
     OLEDShow_ClearToEnd(4, col);
 }
+
+//设置OLED显示方向：面包板翻转后旋转180°，文字仍然正着看
+void OLEDShow_SetFlip(uint8_t flip)
+{
+    OLED_Flip(flip);
+}
+
+//第二页：MPU6500状态、倾斜方向、温湿度、闹钟
+void OLEDShow_ShowSensorPage(uint8_t mpu_ok, uint8_t flipped,
+                              uint8_t temp, uint8_t hum, uint8_t valid,
+                              ALARM_TypeDef *a)
+{
+    uint8_t col;
+
+    //第1行：MPU6500 OK/ERR
+    OLED_ShowString(1, 1, "MPU6500 ");
+    if (mpu_ok)
+    {
+        OLED_ShowString(1, 9, "OK   ");
+    }
+    else
+    {
+        OLED_ShowString(1, 9, "ERR  ");
+    }
+    OLEDShow_ClearToEnd(1, 14);
+
+    //第2行：倾斜方向
+    OLED_ShowString(2, 1, "TILT: ");
+    if (flipped)
+    {
+        OLED_ShowString(2, 7, "UPSIDE");
+    }
+    else
+    {
+        OLED_ShowString(2, 7, "NORMAL");
+    }
+    OLEDShow_ClearToEnd(2, 13);
+
+    //第3行：温湿度
+    OLED_ShowString(3, 1, "T:");
+    if (valid)
+    {
+        OLED_ShowNum(3, 3, temp, 2);
+    }
+    else
+    {
+        OLED_ShowString(3, 3, "--");
+    }
+    OLED_ShowChar(3, 5, 'C');
+    OLED_ShowChar(3, 6, ' ');
+    OLED_ShowString(3, 7, "H:");
+
+    col = 9;
+    if (valid)
+    {
+        if (hum >= 100)
+        {
+            OLED_ShowNum(3, col, hum, 3);
+            col += 3;
+        }
+        else
+        {
+            OLED_ShowNum(3, col, hum, 2);
+            col += 2;
+        }
+    }
+    else
+    {
+        OLED_ShowString(3, col, "--");
+        col += 2;
+    }
+    OLED_ShowChar(3, col, '%');
+    col++;
+    OLEDShow_ClearToEnd(3, col);
+
+    //第4行：闹钟
+    OLED_ShowString(4, 1, "ALM:");
+    OLED_ShowNum(4, 5, a->hour, 2);
+    OLED_ShowChar(4, 7, ':');
+    OLED_ShowNum(4, 8, a->min, 2);
+    OLED_ShowChar(4, 10, ' ');
+    if (a->enable)
+    {
+        OLED_ShowString(4, 11, "ON ");
+    }
+    else
+    {
+        OLED_ShowString(4, 11, "OFF");
+    }
+    OLEDShow_ClearToEnd(4, 14);
+}

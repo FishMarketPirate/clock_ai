@@ -34,7 +34,7 @@ void MYI2C_Init(void)
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_Init(GPIOB,&GPIO_InitStructure);
 	
-	GPIO_SetBits(GPIOA,GPIO_Pin_10|GPIO_Pin_11);
+	GPIO_SetBits(GPIOB,GPIO_Pin_10|GPIO_Pin_11);
 	
 }
 

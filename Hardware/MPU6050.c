@@ -37,6 +37,11 @@ uint8_t MPU6050_ReadReg(uint8_t RegAddress)
 	return Data;
 }
 
+uint8_t MPU6050_ReadID(void)
+{
+	return MPU6050_ReadReg(MPU6050_WHO_AM_I);
+}
+
 void MPU6050_Init(void)
 {
 	MYI2C_Init();
@@ -45,7 +50,7 @@ void MPU6050_Init(void)
 	MPU6050_WriteReg(MPU6050_SMPLRT_DIV,0x09);
 	MPU6050_WriteReg(MPU6050_CONFIG,0x06);
 	MPU6050_WriteReg(MPU6050_GYRO_CONFIG,0x18);
-	MPU6050_WriteReg(MPU6050_ACCEL_CONFIG,0x18);
+	MPU6050_WriteReg(MPU6050_ACCEL_CONFIG,0x00);	//±2g，翻转检测分辨率更高
 }
 
 int16_t MPU6050_Get(int16_t* AccX,int16_t* AccY,int16_t* AccZ,

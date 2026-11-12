@@ -319,3 +319,22 @@ void OLED_Init(void)
 		
 	OLED_Clear();				//OLED清屏
 }
+
+/**
+  * @brief  OLED显示方向翻转
+  * @param  flip 1=旋转180°（面包板翻转后仍能正着看），0=正常
+  * @retval 无
+  */
+void OLED_Flip(uint8_t flip)
+{
+	if (flip)
+	{
+		OLED_WriteCommand(0xA0);	//左右反置
+		OLED_WriteCommand(0xC0);	//上下反置
+	}
+	else
+	{
+		OLED_WriteCommand(0xA1);	//正常
+		OLED_WriteCommand(0xC8);	//正常
+	}
+}

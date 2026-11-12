@@ -2,6 +2,7 @@
 #define __OLED_H
 
 void OLED_Init(void);
+void OLED_Flip(uint8_t flip);   //1=显示旋转180°，0=正常
 void OLED_Clear(void);
 void OLED_ShowChar(uint8_t Line, uint8_t Column, char Char);
 void OLED_ShowString(uint8_t Line, uint8_t Column, char *String);
