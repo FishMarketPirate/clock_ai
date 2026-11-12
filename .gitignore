@@ -1,11 +1,8 @@
-# ============================================================
-# Keil MDK 工程 .gitignore（STM32F103 电子钟）
-# ============================================================
-
-# ---------- Keil 编译产物 ----------
-Objects/
-Listings/
-RTE/
+# ===== Keil / MDK 编译产物 =====
+**/Objects/
+**/Listings/
+**/RTE/
+BOOT/MDK-ARM/demo/
 *.o
 *.d
 *.crf
@@ -18,22 +15,23 @@ RTE/
 *.dep
 *.lnp
 *.iex
+*.sct
 *.build_log.htm
 *.uvguix.*
 *.uvopt.bak
 *.uvproj.bak
 
-# ---------- Keil 自动生成的调试文件 ----------
+# ===== Keil 调试/本地配置 =====
 EventRecorderStub.scvd
 JLinkLog.txt
 JLinkSettings.ini
 
-# ---------- VS Code / Keil Assistant 本地配置与日志 ----------
+# ===== VS Code / Keil Assistant =====
 .vscode/
-
-# ---------- 日志与临时文件 ----------
 *.log
 *.log.lock
+
+# ===== 临时/备份文件 =====
 *.bak
 *.tmp
 *.swp
@@ -41,3 +39,6 @@ JLinkSettings.ini
 Thumbs.db
 desktop.ini
 .DS_Store
+
+# ===== 测试产物 =====
+bad.bin
